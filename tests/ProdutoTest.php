@@ -7,9 +7,16 @@ use PHPUnit\Framework\TestCase;
 
 class ProdutoTest extends TestCase
 {
+    private $produto;
+
+    public function setUp(): void
+    {
+        $this->produto = new Produto();
+    }
+
     public function testSeONomeDoProdutoESetadoCorretamente()
     {
-        $produto = new Produto();
+        $produto = $this->produto;
         $produto->setName("Produto 1");
 
         $this->assertEquals("Produto 1", $produto->getName(), "Valores não são iguais");
@@ -17,7 +24,7 @@ class ProdutoTest extends TestCase
 
     public function testSeOPrecoDoProdutoESetadoCorretamente()
     {
-        $produto = new Produto();
+        $produto = $this->produto;
         $produto->setPrice(3.25);
 
         $this->assertEquals(3.25, $produto->getPrice());
@@ -25,7 +32,7 @@ class ProdutoTest extends TestCase
 
     public function testSeOSlugDoProdutoESetadoCorretamente()
     {
-        $produto = new Produto();
+        $produto = $this->produto;
         $produto->setSlug("produto-1");
 
         $this->assertEquals("produto-1", $produto->getSlug());

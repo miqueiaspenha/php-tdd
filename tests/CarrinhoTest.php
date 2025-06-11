@@ -8,6 +8,21 @@ use PHPUnit\Framework\TestCase;
 
 class CarrinhoTest extends TestCase
 {
+    private $carrinho;
+    private $produto;
+
+    public function setUp(): void
+    {
+        $this->produto = new Produto();
+        $this->carrinho = new Carrinho();
+    }
+
+    public function tearDown(): void
+    {
+        unset($this->carrinho);
+        unset($this->produto);
+    }
+
     public function testSeClasseCarrinhoExiste()
     {
         $classe = class_exists(Produto::class);
@@ -16,17 +31,17 @@ class CarrinhoTest extends TestCase
 
     public function testAdicaoDeProdutosNoCarrinho()
     {
-        $produto1 = new Produto();
+        $produto1 = $this->produto;
         $produto1->setName('Produto 1');
         $produto1->setPrice(19.99);
         $produto1->setSlug('produto-1');
 
-        $produto2 = new Produto();
+        $produto2 = $this->produto;
         $produto2->setName('Produto 2');
         $produto2->setPrice(19.99);
         $produto2->setSlug('produto-2');
 
-        $carrinho = new Carrinho();
+        $carrinho = $this->carrinho;
         $carrinho->addProduto($produto1);
         $carrinho->addProduto($produto2);
 
@@ -37,12 +52,12 @@ class CarrinhoTest extends TestCase
 
     public function testSeValoresDeProdutosNoCarrinhoEstaoCorretosConformePassado()
     {
-        $produto1 = new Produto();
+        $produto1 = $this->produto;
         $produto1->setName('Produto 1');
         $produto1->setPrice(19.99);
         $produto1->setSlug('produto-1');
 
-        $carrinho = new Carrinho();
+        $carrinho = $this->carrinho;
         $carrinho->addProduto($produto1);
 
         $this->assertEquals('Produto 1', $carrinho->getProdutos()[0]->getName());
@@ -52,17 +67,17 @@ class CarrinhoTest extends TestCase
 
     public function testSeTotalDeProdutosEValorDaCompraEstaoCorretos()
     {
-        $produto1 = new Produto();
+        $produto1 = $this->produto;
         $produto1->setName('Produto 1');
         $produto1->setPrice(19.99);
         $produto1->setSlug('produto-1');
 
-        $produto2 = new Produto();
+        $produto2 = clone ($this->produto);
         $produto2->setName('Produto 2');
         $produto2->setPrice(16.55);
         $produto2->setSlug('produto-2');
 
-        $carrinho = new Carrinho();
+        $carrinho = $this->carrinho;
         $carrinho->addProduto($produto1);
         $carrinho->addProduto($produto2);
 
