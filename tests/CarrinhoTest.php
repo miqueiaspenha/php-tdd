@@ -11,12 +11,6 @@ class CarrinhoTest extends TestCase
     private $carrinho;
     private $produto;
 
-    public function setUp(): void
-    {
-        $this->produto = new Produto();
-        $this->carrinho = new Carrinho();
-    }
-
     public static function setUpBeforeClass(): void
     {
         print __METHOD__;
@@ -27,16 +21,33 @@ class CarrinhoTest extends TestCase
         print __METHOD__;
     }
 
-    public function tearDown(): void
+    protected function setUp(): void
+    {
+        $this->produto = new Produto();
+        $this->carrinho = new Carrinho();
+    }
+
+    protected function tearDown(): void
     {
         unset($this->carrinho);
         unset($this->produto);
     }
 
-    public function testSeClasseCarrinhoExiste()
+    // public function testSeClasseCarrinhoExiste()
+    // {
+    //     $classe = class_exists(Produto::class);
+    //     $this->assertTrue($classe);
+    // }
+
+    protected function assertPreConditions(): void
     {
         $classe = class_exists(Produto::class);
         $this->assertTrue($classe);
+    }
+
+    protected function assertPostConditions(): void
+    {
+        // Executa depois do teste tearDown
     }
 
     public function testAdicaoDeProdutosNoCarrinho()
