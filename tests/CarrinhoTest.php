@@ -17,6 +17,16 @@ class CarrinhoTest extends TestCase
         $this->carrinho = new Carrinho();
     }
 
+    public static function setUpBeforeClass(): void
+    {
+        print __METHOD__;
+    }
+
+    public static function tearDownAfterClass(): void
+    {
+        print __METHOD__;
+    }
+
     public function tearDown(): void
     {
         unset($this->carrinho);
