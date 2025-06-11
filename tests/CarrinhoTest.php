@@ -13,12 +13,12 @@ class CarrinhoTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        print __METHOD__;
+        // print __METHOD__;
     }
 
     public static function tearDownAfterClass(): void
     {
-        print __METHOD__;
+        // print __METHOD__;
     }
 
     protected function setUp(): void
@@ -104,5 +104,19 @@ class CarrinhoTest extends TestCase
 
         $this->assertEquals(2, $carrinho->getTotalProdutos());
         $this->assertEquals(36.54, $carrinho->getTotalCompra());
+    }
+
+    public function testIncompleto()
+    {
+        $this->assertTrue(true);
+        $this->markTestIncomplete('Teste não está completo');
+    }
+
+    public function testSeFetureEspecificaParaVersaoDoPhpTrabalhaDeFormaEsperada()
+    {
+        if (PHP_VERSION  != 5.3) {
+            $this->markTestSkipped('Este teste só roda para versão abaixo do PHP 7');
+        }
+        $this->assertTrue(true);
     }
 }
