@@ -2,6 +2,8 @@
 
 namespace Code;
 
+use InvalidArgumentException;
+
 class Produto
 {
     private $name;
@@ -37,6 +39,9 @@ class Produto
 
     public function setSlug($slug): void
     {
+        if (!$slug) {
+            throw new InvalidArgumentException('Parâmetro inválido, informe um slug');
+        }
         $this->slug = $slug;
     }
 }

@@ -3,6 +3,7 @@
 namespace Code\Tests;
 
 use Code\Produto;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class ProdutoTest extends TestCase
@@ -36,5 +37,14 @@ class ProdutoTest extends TestCase
         $produto->setSlug("produto-1");
 
         $this->assertEquals("produto-1", $produto->getSlug());
+    }
+
+    public function testSeSetSlugLancaExceptionQuandoNaoInformada()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Parâmetro inválido, informe um slug');
+
+        $produto = $this->produto;
+        $produto->setSlug('');
     }
 }

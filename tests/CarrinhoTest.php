@@ -4,6 +4,7 @@ namespace Code\Tests;
 
 use Code\Carrinho;
 use Code\Produto;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class CarrinhoTest extends TestCase
