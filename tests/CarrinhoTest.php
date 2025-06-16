@@ -3,6 +3,7 @@
 namespace Code\Tests;
 
 use Code\Carrinho;
+use Code\Log;
 use Code\Produto;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
@@ -79,13 +80,12 @@ class CarrinhoTest extends TestCase
         // $produto1->setPrice(19.99);
         // $produto1->setSlug('produto-1');
 
-        $produtoStub = $this->createMock(Produto::class);
-        $produtoStub->method('getName')->willReturn('Produto 1');
-        $produtoStub->method('getPrice')->willReturn(19.99);
-        $produtoStub->method('getSlug')->willReturn('produto-1');
+        $produtoStub = $this->getStubProduto();
+
+        $logMock = $this->getMockLog();
 
         $carrinho = $this->carrinho;
-        $carrinho->addProduto($produtoStub);
+        $carrinho->addProduto($produtoStub, $logMock);
 
         $this->assertEquals('Produto 1', $carrinho->getProdutos()[0]->getName());
         $this->assertEquals(19.99, $carrinho->getProdutos()[0]->getPrice());
@@ -124,5 +124,33 @@ class CarrinhoTest extends TestCase
             $this->markTestSkipped('Este teste só roda para versão abaixo do PHP 7');
         }
         $this->assertTrue(true);
+    }
+
+    // public function testSeLogESalvoQuandoInformadoParaAAdicaoDeProduto()
+    // {
+    //     $carrinho = new Carrinho();
+    //     $logMock = $this->getMockLog();
+    //     $carrinho->addProduto($this->getStubProduto(), $logMock);
+    // }
+
+    public function getMockLog()
+    {
+        $logMock = $this->getMockBuilder(Log::class)
+            ->onlyMethods(['log'])
+            ->getMock();
+
+        $logMock->expects($this->once())
+            ->method('log')
+            ->with($this->equalTo('Adicionando produto no carrinho'));
+        return $logMock;
+    }
+
+    private function getStubProduto()
+    {
+        $produto = $this->createMock(Produto::class);
+        $produto->method('getName')->willReturn('Produto 1');
+        $produto->method('getPrice')->willReturn(19.99);
+        $produto->method('getSlug')->willReturn('produto-1');
+        return $produto;
     }
 }

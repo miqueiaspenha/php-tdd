@@ -7,8 +7,5 @@
             "Code\\": "src/",
             "Code\\Tests\\": "tests/"
         }
-    },
-    "config": {
-        "bin-dir": "bin/"
     }
 }
